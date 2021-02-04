@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-Color mainColor = Colors.amber;
-Color accentColor = Colors.greenAccent;
+Color accentColor = Colors.amber;
+Color mainColor = Colors.indigo;
 
 TextStyle titleStyle = GoogleFonts.poppins(
   fontSize: 18,

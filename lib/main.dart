@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:teman_tempat/providers/place_provider.dart';
+import 'package:teman_tempat/screens/add_place_screen.dart';
 import 'package:teman_tempat/screens/home_page.dart';
 import 'package:teman_tempat/shared/theme.dart';
 
@@ -11,15 +13,24 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => PlaceProvider(),
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        themeMode: ThemeMode.system,
-        darkTheme: ThemeData.dark(),
-        theme: ThemeData(
-          primarySwatch: mainColor,
-          accentColor: accentColor,
+      child: GestureDetector(
+        onTap: () {
+          FocusManager.instance.primaryFocus.unfocus();
+        },
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            textTheme:
+                GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme),
+            primarySwatch: mainColor,
+            accentColor: accentColor,
+          ),
+          title: "Teman Tempat",
+          home: HomePage(),
+          routes: {
+            AddPlaceScreen.routeName: (context) => AddPlaceScreen(),
+          },
         ),
-        home: HomePage(),
       ),
     );
   }

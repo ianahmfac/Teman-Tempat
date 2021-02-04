@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:teman_tempat/providers/place_provider.dart';
+import 'package:teman_tempat/screens/add_place_screen.dart';
 import 'package:teman_tempat/shared/theme.dart';
+import 'package:teman_tempat/widgets/place_item.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -7,12 +11,34 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Teman Tempat"),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.add),
+            onPressed: () {
+              Navigator.of(context).pushNamed(AddPlaceScreen.routeName);
+            },
+          ),
+        ],
       ),
-      body: Center(
-        child: Text(
-          "TEMAN TEMPAT",
-          style: titleStyle,
+      body: Consumer<PlaceProvider>(
+        child: Center(
+          child: Text(
+            "Empty Data",
+            style: titleStyle,
+          ),
         ),
+        builder: (context, place, child) {
+          return (place.places.isEmpty)
+              ? child
+              : ListView.builder(
+                  padding: const EdgeInsets.all(16),
+                  itemCount: place.places.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    final currentPlace = place.places[index];
+                    return PlaceItem(currentPlace: currentPlace);
+                  },
+                );
+        },
       ),
     );
   }
