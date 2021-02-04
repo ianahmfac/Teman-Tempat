@@ -35,6 +35,19 @@ class _ImageInputState extends State<ImageInput> {
     widget.onImageSaved(savedImage);
   }
 
+  Future<void> pickImageFromGallery() async {
+    final picker = ImagePicker();
+    final imageFile = await picker.getImage(
+      source: ImageSource.gallery,
+      maxWidth: 600,
+    );
+    setState(() {
+      _storedImage = File(imageFile.path);
+    });
+
+    widget.onImageSaved(_storedImage);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -109,7 +122,10 @@ class _ImageInputState extends State<ImageInput> {
               ListTile(
                 leading: Icon(Icons.image),
                 title: Text("Pilih dari galeri"),
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(context).pop();
+                  pickImageFromGallery();
+                },
               ),
             ],
           ),
