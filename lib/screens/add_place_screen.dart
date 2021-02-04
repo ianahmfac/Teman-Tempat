@@ -94,26 +94,27 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
   }
 
   Widget _buildButton() {
-    return SizedBox(
-      height: 50,
-      child: TextButton.icon(
-        onPressed: _savePlace,
-        icon: Icon(
-          Icons.add,
+    return TextButton(
+      onPressed: _savePlace,
+      child: SafeArea(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.add),
+            SizedBox(width: 8),
+            Text(
+              "Tambahkan",
+              style: titleStyle,
+            ),
+          ],
         ),
-        label: SafeArea(
-          child: Text(
-            "Tambahkan",
-          ),
-        ),
-        style: ElevatedButton.styleFrom(
-            primary: accentColor,
-            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            elevation: 0,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(0),
-            )),
       ),
+      style: ElevatedButton.styleFrom(
+          primary: accentColor,
+          elevation: 0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(0),
+          )),
     );
   }
 }
