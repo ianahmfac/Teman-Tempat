@@ -110,6 +110,7 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
         ),
       ),
       style: ElevatedButton.styleFrom(
+          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
           primary: accentColor,
           elevation: 0,
           shape: RoundedRectangleBorder(

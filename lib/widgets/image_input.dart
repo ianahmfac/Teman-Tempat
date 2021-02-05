@@ -54,27 +54,25 @@ class _ImageInputState extends State<ImageInput> {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Container(
-          height: 120,
-          width: MediaQuery.of(context).size.width * 0.5,
-          decoration: BoxDecoration(
-            border: Border.all(width: 1, color: Colors.grey),
-            borderRadius: BorderRadius.circular(16),
+        Expanded(
+          child: Container(
+            height: 120,
+            decoration: BoxDecoration(
+              border: Border.all(width: 1, color: Colors.grey),
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: _storedImage != null
+                ? ClipRRect(
+                    borderRadius: BorderRadius.circular(16),
+                    child: Image.file(
+                      _storedImage,
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                    ),
+                  )
+                : Text("No Image Previewed", textAlign: TextAlign.center),
+            alignment: Alignment.center,
           ),
-          child: _storedImage != null
-              ? ClipRRect(
-                  borderRadius: BorderRadius.circular(16),
-                  child: Image.file(
-                    _storedImage,
-                    fit: BoxFit.cover,
-                    width: double.infinity,
-                  ),
-                )
-              : Text("No Image Previewed", textAlign: TextAlign.center),
-          alignment: Alignment.center,
-        ),
-        SizedBox(
-          width: 16,
         ),
         Expanded(
           child: TextButton.icon(
