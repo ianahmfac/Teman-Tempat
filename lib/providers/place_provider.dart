@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:teman_tempat/helpers/db_helper.dart';
 import 'package:teman_tempat/models/place.dart';
 
 class PlaceProvider with ChangeNotifier {
@@ -17,5 +18,10 @@ class PlaceProvider with ChangeNotifier {
     );
     _places.add(newPlace);
     notifyListeners();
+    DBHelper.insert("places", {
+      "id": newPlace.id,
+      "title": newPlace.location,
+      "image": image.path,
+    });
   }
 }
