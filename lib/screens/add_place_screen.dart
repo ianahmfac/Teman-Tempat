@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:teman_tempat/providers/place_provider.dart';
 import 'package:teman_tempat/shared/theme.dart';
 import 'package:teman_tempat/widgets/image_input.dart';
+import 'package:teman_tempat/widgets/location_input.dart';
 
 class AddPlaceScreen extends StatefulWidget {
   static const routeName = "/add-place";
@@ -87,6 +88,8 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
               height: 16,
             ),
             ImageInput(onImageSaved: _selectImage),
+            SizedBox(height: 16),
+            LocationInput(),
           ],
         ),
       ),
