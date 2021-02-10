@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:location/location.dart';
 import 'package:teman_tempat/helpers/location_helper.dart';
+import 'package:teman_tempat/screens/map_screen.dart';
 import 'package:teman_tempat/shared/theme.dart';
 
 class LocationInput extends StatefulWidget {
@@ -24,6 +25,18 @@ class _LocationInputState extends State<LocationInput> {
       _previewImageUrl = LocationHelper.generatePreviewImage(
           latitude: locationData.latitude, longitude: locationData.longitude);
     });
+  }
+
+  Future _selectOnMap() async {
+    final selectMap = await Navigator.of(context).push(MaterialPageRoute(
+      fullscreenDialog: true,
+      builder: (context) => MapScreen(
+        isSelecting: true,
+      ),
+    ));
+    if (selectMap == null) {
+      return;
+    }
   }
 
   @override
@@ -63,7 +76,7 @@ class _LocationInputState extends State<LocationInput> {
             TextButton.icon(
               icon: Icon(Icons.map),
               label: Text("Pilih Melalui Map"),
-              onPressed: () {},
+              onPressed: _selectOnMap,
             ),
           ],
         ),
