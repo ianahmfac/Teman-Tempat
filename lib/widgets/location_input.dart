@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:location/location.dart';
+import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:teman_tempat/helpers/location_helper.dart';
 import 'package:teman_tempat/screens/map_screen.dart';
 import 'package:teman_tempat/shared/theme.dart';
@@ -28,7 +29,10 @@ class _LocationInputState extends State<LocationInput> {
   }
 
   Future _selectOnMap() async {
-    final selectMap = await Navigator.of(context).push(MaterialPageRoute(
+    setState(() {
+      _isLoadImage = true;
+    });
+    final LatLng selectMap = await Navigator.of(context).push(MaterialPageRoute(
       fullscreenDialog: true,
       builder: (context) => MapScreen(
         isSelecting: true,
@@ -37,6 +41,13 @@ class _LocationInputState extends State<LocationInput> {
     if (selectMap == null) {
       return;
     }
+    setState(() {
+      _isLoadImage = false;
+      _previewImageUrl = LocationHelper.generatePreviewImage(
+        latitude: selectMap.latitude,
+        longitude: selectMap.longitude,
+      );
+    });
   }
 
   @override
