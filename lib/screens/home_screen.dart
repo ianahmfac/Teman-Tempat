@@ -6,7 +6,7 @@ import 'package:teman_tempat/screens/add_place_screen.dart';
 import 'package:teman_tempat/shared/theme.dart';
 import 'package:teman_tempat/widgets/place_item.dart';
 
-class HomePage extends StatelessWidget {
+class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

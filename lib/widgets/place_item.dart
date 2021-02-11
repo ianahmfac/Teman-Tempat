@@ -20,6 +20,7 @@ class PlaceItem extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         onTap: () {},
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ClipRRect(
               borderRadius: BorderRadius.only(
@@ -34,10 +35,31 @@ class PlaceItem extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
               child: Text(
                 currentPlace.title,
                 style: titleStyle,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Icon(
+                    Icons.location_pin,
+                    color: Colors.red,
+                  ),
+                  SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      currentPlace.location.address,
+                      style: bodyStyle.copyWith(
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ],

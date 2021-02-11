@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:teman_tempat/models/place_location.dart';
 import 'package:teman_tempat/providers/place_provider.dart';
 import 'package:teman_tempat/shared/theme.dart';
 import 'package:teman_tempat/widgets/image_input.dart';
@@ -17,19 +18,26 @@ class AddPlaceScreen extends StatefulWidget {
 class _AddPlaceScreenState extends State<AddPlaceScreen> {
   final _titleController = TextEditingController();
   File _imagePicked;
+  PlaceLocation _locationPicked;
 
   void _selectImage(File imagePicked) {
     _imagePicked = imagePicked;
   }
 
+  void _selectLocation(double latitude, double longitude) {
+    _locationPicked = PlaceLocation(latitude: latitude, longitude: longitude);
+  }
+
   void _savePlace() {
-    if (_titleController.text.isEmpty || _imagePicked == null) {
+    if (_titleController.text.isEmpty ||
+        _imagePicked == null ||
+        _locationPicked == null) {
       showCupertinoDialog(
           context: context,
           builder: (context) => CupertinoAlertDialog(
                 title: Text("Kesalahan"),
-                content:
-                    Text("Nama tempat atau gambar tidak boleh dikosongkan"),
+                content: Text(
+                    "Nama tempat, gambar dan lokasi tidak boleh dikosongkan"),
                 actions: [
                   CupertinoButton(
                     child: Text("Tutup"),
@@ -40,7 +48,7 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
       return;
     }
     Provider.of<PlaceProvider>(context, listen: false)
-        .addNewPlace(_titleController.text, _imagePicked);
+        .addNewPlace(_titleController.text, _imagePicked, _locationPicked);
     Navigator.of(context).pop();
   }
 
@@ -89,7 +97,7 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
             ),
             ImageInput(onImageSaved: _selectImage),
             SizedBox(height: 16),
-            LocationInput(),
+            LocationInput(_selectLocation),
           ],
         ),
       ),

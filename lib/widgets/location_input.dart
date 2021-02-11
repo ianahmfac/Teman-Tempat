@@ -8,6 +8,9 @@ import 'package:teman_tempat/screens/map_screen.dart';
 import 'package:teman_tempat/shared/theme.dart';
 
 class LocationInput extends StatefulWidget {
+  final Function onMapSelected;
+  LocationInput(this.onMapSelected);
+
   @override
   _LocationInputState createState() => _LocationInputState();
 }
@@ -28,6 +31,7 @@ class _LocationInputState extends State<LocationInput> {
       _previewImageUrl = LocationHelper.generatePreviewImage(
           latitude: locationData.latitude, longitude: locationData.longitude);
     });
+    widget.onMapSelected(locationData.latitude, locationData.longitude);
   }
 
   Future _selectOnMap() async {
@@ -53,6 +57,7 @@ class _LocationInputState extends State<LocationInput> {
         longitude: selectMap.longitude,
       );
     });
+    widget.onMapSelected(selectMap.latitude, selectMap.longitude);
   }
 
   @override

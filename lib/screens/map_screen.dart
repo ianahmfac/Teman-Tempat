@@ -24,6 +24,13 @@ class _MapScreenState extends State<MapScreen> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    _pickedLocation =
+        LatLng(widget.location.latitude, widget.location.longitude);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -32,18 +39,16 @@ class _MapScreenState extends State<MapScreen> {
           widget.isSelecting
               ? IconButton(
                   icon: Icon(Icons.check),
-                  onPressed: _pickedLocation == null
-                      ? null
-                      : () {
-                          Navigator.of(context).pop(_pickedLocation);
-                        },
+                  onPressed: () {
+                    Navigator.of(context).pop(_pickedLocation);
+                  },
                 )
               : null,
         ],
       ),
       body: FlutterMap(
         options: MapOptions(
-          center: LatLng(widget.location.latitude, widget.location.longitude),
+          center: _pickedLocation,
           zoom: 16.0,
           interactive: true,
           onTap: (point) {
@@ -52,26 +57,25 @@ class _MapScreenState extends State<MapScreen> {
         ),
         layers: [
           TileLayerOptions(
-              urlTemplate:
-                  "https://api.mapbox.com/styles/v1/ianahmfac/ckkz8fajc1o4717ocjzryw3hj/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiaWFuYWhtZmFjIiwiYSI6ImNramt1d21weDA0MDcycW4wNWR6dnZwcjgifQ.XIjkZvTEBbbGtqBhMVzMMg",
-              additionalOptions: {
-                "accessToken": token,
-                "id": "mapbox.mapbox-streets-v8"
-              }),
+            urlTemplate:
+                "https://api.mapbox.com/styles/v1/ianahmfac/ckkz8fajc1o4717ocjzryw3hj/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiaWFuYWhtZmFjIiwiYSI6ImNramt1d21weDA0MDcycW4wNWR6dnZwcjgifQ.XIjkZvTEBbbGtqBhMVzMMg",
+            additionalOptions: {
+              "accessToken": token,
+              "id": "mapbox.mapbox-streets-v8"
+            },
+          ),
           MarkerLayerOptions(
             markers: [
               Marker(
-                  width: 80.0,
-                  height: 80.0,
-                  point: _pickedLocation == null
-                      ? LatLng(
-                          widget.location.latitude, widget.location.longitude)
-                      : _pickedLocation,
-                  builder: (ctx) => Icon(
-                        Icons.location_on,
-                        color: Colors.red,
-                        size: 40,
-                      )),
+                width: 80.0,
+                height: 80.0,
+                point: _pickedLocation,
+                builder: (ctx) => Icon(
+                  Icons.location_pin,
+                  color: Colors.red,
+                  size: 40,
+                ),
+              ),
             ],
           ),
         ],

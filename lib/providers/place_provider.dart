@@ -2,26 +2,39 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:teman_tempat/helpers/db_helper.dart';
+import 'package:teman_tempat/helpers/location_helper.dart';
 import 'package:teman_tempat/models/place.dart';
+import 'package:teman_tempat/models/place_location.dart';
 
 class PlaceProvider with ChangeNotifier {
   List<Place> _places = [];
 
   List<Place> get places => [..._places];
 
-  void addNewPlace(String title, File image) {
+  Future addNewPlace(String title, File image, PlaceLocation location) async {
+    final String locationName = await LocationHelper.getLocationName(
+        location.latitude, location.longitude);
+    final updateLocation = PlaceLocation(
+        latitude: location.latitude,
+        longitude: location.longitude,
+        address: locationName);
+
     final newPlace = Place(
       id: DateTime.now().toString(),
       title: title,
       image: image,
-      location: null,
+      location: updateLocation,
     );
     _places.add(newPlace);
+
     notifyListeners();
     DBHelper.insert("PLACES", {
       "id": newPlace.id,
       "title": newPlace.title,
-      "image": image.path,
+      "image": newPlace.image.path,
+      "loc_latitude": newPlace.location.latitude,
+      "loc_longitude": newPlace.location.longitude,
+      "address": newPlace.location.address,
     });
   }
 
@@ -33,7 +46,11 @@ class PlaceProvider with ChangeNotifier {
               id: place["id"],
               title: place["title"],
               image: File(place["image"]),
-              location: null,
+              location: PlaceLocation(
+                latitude: place["loc_latitude"],
+                longitude: place["loc_longitude"],
+                address: place["address"],
+              ),
             ))
         .toList();
     notifyListeners();

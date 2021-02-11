@@ -8,7 +8,10 @@ class DBHelper {
     CREATE TABLE PLACES(
       id TEXT PRIMARY KEY,
       title TEXT,
-      image TEXT
+      image TEXT,
+      loc_latitude REAL,
+      loc_longitude REAL,
+      address TEXT
     )
     """;
     return openDatabase(
