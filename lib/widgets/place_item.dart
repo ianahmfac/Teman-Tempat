@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:teman_tempat/models/place.dart';
+import 'package:teman_tempat/screens/detail_place_screen.dart';
 import 'package:teman_tempat/shared/theme.dart';
 
 class PlaceItem extends StatelessWidget {
@@ -18,7 +19,12 @@ class PlaceItem extends StatelessWidget {
       ),
       child: InkWell(
         borderRadius: BorderRadius.circular(16),
-        onTap: () {},
+        onTap: () {
+          Navigator.of(context).pushNamed(
+            DetailPlaceScreen.routeName,
+            arguments: currentPlace.id,
+          );
+        },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

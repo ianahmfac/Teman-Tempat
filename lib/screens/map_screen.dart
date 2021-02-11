@@ -6,8 +6,12 @@ import 'package:latlong/latlong.dart';
 class MapScreen extends StatefulWidget {
   final PlaceLocation location;
   final bool isSelecting;
+  final String appBarTitle;
 
-  MapScreen({@required this.location, this.isSelecting = false});
+  MapScreen(
+      {@required this.location,
+      this.isSelecting = false,
+      this.appBarTitle = "Pilih Melalui Peta"});
   @override
   _MapScreenState createState() => _MapScreenState();
 }
@@ -34,26 +38,28 @@ class _MapScreenState extends State<MapScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Pilih Melalui Peta"),
-        actions: [
-          widget.isSelecting
-              ? IconButton(
+        title: Text(widget.appBarTitle),
+        actions: widget.isSelecting
+            ? [
+                IconButton(
                   icon: Icon(Icons.check),
                   onPressed: () {
                     Navigator.of(context).pop(_pickedLocation);
                   },
                 )
-              : null,
-        ],
+              ]
+            : null,
       ),
       body: FlutterMap(
         options: MapOptions(
           center: _pickedLocation,
           zoom: 16.0,
           interactive: true,
-          onTap: (point) {
-            _selectLocation(point);
-          },
+          onTap: widget.isSelecting
+              ? (point) {
+                  _selectLocation(point);
+                }
+              : null,
         ),
         layers: [
           TileLayerOptions(

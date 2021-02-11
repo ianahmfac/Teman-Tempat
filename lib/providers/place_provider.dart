@@ -11,10 +11,14 @@ class PlaceProvider with ChangeNotifier {
 
   List<Place> get places => [..._places];
 
+  Place findById(String id) {
+    return _places.firstWhere((place) => place.id == id);
+  }
+
   Future addNewPlace(String title, File image, PlaceLocation location) async {
     final String locationName = await LocationHelper.getLocationName(
         location.latitude, location.longitude);
-    final updateLocation = PlaceLocation(
+    final PlaceLocation updateLocation = PlaceLocation(
         latitude: location.latitude,
         longitude: location.longitude,
         address: locationName);

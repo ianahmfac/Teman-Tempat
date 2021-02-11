@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:teman_tempat/providers/place_provider.dart';
 import 'package:teman_tempat/screens/add_place_screen.dart';
+import 'package:teman_tempat/screens/detail_place_screen.dart';
 import 'package:teman_tempat/screens/home_screen.dart';
 import 'package:teman_tempat/shared/theme.dart';
 
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
           home: HomeScreen(),
           routes: {
             AddPlaceScreen.routeName: (context) => AddPlaceScreen(),
+            DetailPlaceScreen.routeName: (context) => DetailPlaceScreen(),
           },
         ),
       ),
