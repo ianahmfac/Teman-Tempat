@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:teman_tempat/helpers/api_key.dart';
 import 'package:teman_tempat/models/place_location.dart';
 import 'package:latlong/latlong.dart';
 
@@ -17,8 +18,7 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
-  final String token =
-      "pk.eyJ1IjoiaWFuYWhtZmFjIiwiYSI6ImNramt1d21weDA0MDcycW4wNWR6dnZwcjgifQ.XIjkZvTEBbbGtqBhMVzMMg";
+  final String token = ApiKey.MAPBOX_API_KEY;
   LatLng _pickedLocation;
 
   _selectLocation(LatLng position) {
@@ -64,7 +64,7 @@ class _MapScreenState extends State<MapScreen> {
         layers: [
           TileLayerOptions(
             urlTemplate:
-                "https://api.mapbox.com/styles/v1/ianahmfac/ckkz8fajc1o4717ocjzryw3hj/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiaWFuYWhtZmFjIiwiYSI6ImNramt1d21weDA0MDcycW4wNWR6dnZwcjgifQ.XIjkZvTEBbbGtqBhMVzMMg",
+                "https://api.mapbox.com/styles/v1/ianahmfac/ckkz8fajc1o4717ocjzryw3hj/tiles/256/{z}/{x}/{y}@2x?access_token=$token",
             additionalOptions: {
               "accessToken": token,
               "id": "mapbox.mapbox-streets-v8"

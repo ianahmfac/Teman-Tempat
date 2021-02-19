@@ -34,6 +34,9 @@
 # Web related
 lib/generated_plugin_registrant.dart
 
+# Key
+lib/helpers/api_key.dart
+
 # Symbolication related
 app.*.symbols
 
