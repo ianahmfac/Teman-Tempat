@@ -1,6 +1,9 @@
-# teman_tempat
+# Teman Tempat
 
-A new Flutter project.
+Teman Tempat is Simple flutter app using a native feature like pick a photo from camera or gallery, and using maps. Also using SQLite for storing data locally
+
+## Project
+![img](https://github.com/ianahmfac/images/blob/master/Banner%20Teman%20Tempat.png?raw=true)
 
 ## Getting Started
 
